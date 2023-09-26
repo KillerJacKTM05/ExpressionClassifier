@@ -44,7 +44,8 @@ for root, dirs, files in os.walk(data_dir):
             labels.append(label)
 
 # Perform stratified split
-train_paths, val_paths, train_labels, val_labels = train_test_split(file_paths, labels, test_size=0.25, stratify=labels, random_state=123)
+# Tribute to Douglas Adams
+train_paths, val_paths, train_labels, val_labels = train_test_split(file_paths, labels, test_size=0.3, stratify=labels, random_state=42)
 
 # Create Data Generators
 train_datagen = ImageDataGenerator(
@@ -64,6 +65,7 @@ train_ds = train_datagen.flow_from_dataframe(
     target_size=img_size,
     batch_size=batch_size,
     class_mode='categorical',
+    shuffle = True
 )
 
 val_ds = val_datagen.flow_from_dataframe(
@@ -73,6 +75,7 @@ val_ds = val_datagen.flow_from_dataframe(
     target_size=img_size,
     batch_size=batch_size,
     class_mode='categorical',
+    shuffle = True
 )
 
 # Create the model
@@ -85,13 +88,19 @@ model = Sequential([
     Dropout(0.25),
     Conv2D(128, (3, 3), activation='relu'),
     Conv2D(128, (3, 3), activation='relu'),
-    Conv2D(128, (3, 3), activation='relu'),
+    BatchNormalization(),
+    MaxPooling2D((2, 2)),
+    Dropout(0.25),
+    Conv2D(256, (3, 3), activation='relu'),
     BatchNormalization(),
     MaxPooling2D((2, 2)),
     Dropout(0.25),
     
     Flatten(),
+    Dense(128, activation='relu'),
+    BatchNormalization(),
     Dense(512, activation='relu'),
+    Dropout(0.25),
     Dense(num_classes, activation='softmax')
 ])
 

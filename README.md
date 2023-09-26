@@ -21,7 +21,7 @@ Bugs:
 # Version 0.3
 New data loading module added. It uses stratifying train_test_split method for getting at least a sample from each class. Because, our dataset is highly imbalanced and our training phase was affected by this problem.
 Visualizing methods also revised. Now we are randomly taking 4 images from next batch with considering they have also unique labels.
-Training now be done with the batch size 16 and 25 epochs.
+Training now be done with the batch size 16 and 25 epochs with the train-valid ratio of 75:25.
 - Accuracy: 0.625
 - Precision: 0.9166666666666666
 - Recall: 0.625
@@ -35,3 +35,11 @@ Additional 1 conv23(128) layer, Dense Layer(256) replaced with 512.
 - Recall: 0.6875
 - F1 Score: 0.6613095238095239
 It performed slightly better but we need some additional changes.
+
+# Version 0.5
+1 Conv2D((128,3,3)) layer changed with (256,3,3) and added extra batch norm. , max pool. and dropout. Also, Added additional Dense(128) connected layer. 
+Train-Valid ratio changed to 7:3
+- Accuracy: 0.6875
+- Precision: 0.7678571428571428
+- Recall: 0.6875
+- F1 Score: 0.6875
