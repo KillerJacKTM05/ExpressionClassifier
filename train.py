@@ -44,7 +44,7 @@ for root, dirs, files in os.walk(data_dir):
             labels.append(label)
 
 # Perform stratified split
-train_paths, val_paths, train_labels, val_labels = train_test_split(file_paths, labels, test_size=0.2, stratify=labels, random_state=123)
+train_paths, val_paths, train_labels, val_labels = train_test_split(file_paths, labels, test_size=0.25, stratify=labels, random_state=123)
 
 # Create Data Generators
 train_datagen = ImageDataGenerator(
@@ -84,13 +84,14 @@ model = Sequential([
     MaxPooling2D((2, 2)),
     Dropout(0.25),
     Conv2D(128, (3, 3), activation='relu'),
-    BatchNormalization(),
     Conv2D(128, (3, 3), activation='relu'),
+    Conv2D(128, (3, 3), activation='relu'),
+    BatchNormalization(),
     MaxPooling2D((2, 2)),
     Dropout(0.25),
     
     Flatten(),
-    Dense(256, activation='relu'),
+    Dense(512, activation='relu'),
     Dense(num_classes, activation='softmax')
 ])
 

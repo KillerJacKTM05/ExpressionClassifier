@@ -26,3 +26,12 @@ Training now be done with the batch size 16 and 25 epochs.
 - Precision: 0.9166666666666666
 - Recall: 0.625
 - F1 Score: 0.6571199633699633
+The only main problem here is, even if we do stratifying the
+
+# Version 0.4
+Additional 1 conv23(128) layer, Dense Layer(256) replaced with 512.
+- Accuracy: 0.6875
+- Precision: 0.71875
+- Recall: 0.6875
+- F1 Score: 0.6613095238095239
+It performed slightly better but we need some additional changes.
